@@ -1,0 +1,32 @@
+
+form {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Salas.css */
+.form-group {
+    margin-bottom: 20px; /* Espaçamento entre os grupos de formulário */
+  }
+  
+  .form-group .btn + .btn {
+    margin-left: 10px; /* Espaçamento entre os botões */
+  }
+  /* Estilo para campos válidos */
+.is-valid {
+    border-color: green !important;
+  }
+  #observacoes {
+    vertical-align: top;
+    height: 100px;
+  }
+  

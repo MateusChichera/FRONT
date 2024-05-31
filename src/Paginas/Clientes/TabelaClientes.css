@@ -1,0 +1,33 @@
+/* TabelaClientes.css */
+.table-container {
+    margin-top: 50px;
+  }
+  
+  .table-striped {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table-striped th, .table-striped td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd; /* Adiciona bordas para as células da tabela */
+  }
+  
+  .table-striped th {
+    background-color: #f2f2f2;
+  }
+  
+  .table-striped tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .btn {
+    margin-right: 5px;
+    display: inline-block; /* Garante que os botões estejam lado a lado */
+  }
+  
+  .table-striped td .btn {
+    margin-right: 5px; /* Garante espaçamento entre os botões */
+  }
+  

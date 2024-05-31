@@ -1,0 +1,75 @@
+/* Estilos para a barra de navegação */
+.side-bar {
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    left: -250px; /* Mantém a barra escondida inicialmente */
+    top: 0; /* Alinha a barra no topo */
+    background-color: #164823;
+    transition: left 0.5s; /* Adiciona transição suave */
+    z-index: 1000; /* Garante que a barra esteja acima de outros elementos */
+}
+
+.side-bar.active-nav {
+    left: 0; /* Exibe a barra quando estiver ativa */
+}
+
+.side-bar .nav {
+    padding-top: 20px; /* Adiciona espaçamento no topo */
+}
+
+.side-bar .nav-link {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10px; /* Adiciona espaçamento entre os links */
+    transition: color 0.3s; /* Adiciona transição suave para a cor */
+}
+
+.side-bar .nav-link:hover {
+    color: rgba(255, 255, 255, 0.8); /* Altera a cor ao passar o mouse */
+}
+
+.side-bar .nav-link span {
+    margin-left: 10px; /* Adiciona espaçamento à esquerda do texto do link */
+}
+
+.side-bar .nav-link.active {
+    font-weight: bold; /* Aplica formatação para link ativo */
+}
+
+/* Estilos para o container superior */
+.my-container.active-count {
+    background-color: #f8f9fa; /* Cor de fundo */
+    border-bottom: 1px solid #dee2e6; /* Adiciona uma linha inferior */
+    padding: 5px 20px; /* Adiciona preenchimento */
+    display: flex; /* Alinha os itens na horizontal */
+    justify-content: space-between; /* Espaça os itens uniformemente */
+    align-items: center; /* Centraliza os itens verticalmente */
+    position: fixed; /* Fixa o container no topo */
+    top: 0; /* Alinha o container no topo */
+    width: calc(100% - 250px); /* Calcula a largura restante após subtrair a largura da barra de navegação */
+    z-index: 999; /* Garante que o container esteja abaixo da barra de navegação */
+}
+
+.my-container.active-count p {
+    margin: 0; /* Remove as margens do parágrafo */
+}
+
+.my-container.active-count svg {
+    color: #536374; /* Cor do ícone */
+    cursor: pointer; /* Cursor de ponteiro ao passar por cima */
+}
+.menu-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1001; /* Para garantir que o botão esteja sempre acima da barra de navegação */
+    cursor: pointer;
+}
+
+.menu-button.active {
+    display: none; /* Oculta o botão quando a barra lateral estiver ativa */
+}
+
+
