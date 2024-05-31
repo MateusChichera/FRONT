@@ -41,7 +41,7 @@ function Clientes() {
       setCpfError('');
     }
   };
-
+a
   const handleBlurCNPJ = async () => {
     if (validarCNPJ(cnpj)) {
       try {
