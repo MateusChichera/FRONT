@@ -9,6 +9,8 @@ import Salas from './Paginas/Salas/Salas.jsx';
 import Horarios from './Paginas/Horarios/Horarios.jsx';
 import Planos from './Paginas/Planos/Planos.jsx';
 import Clientes from  './Paginas/Clientes/Clientes.jsx'
+import TabelaClientes from './Paginas/Clientes/TabelaClientes.jsx';
+import Editar from './Paginas/Clientes/Editar.jsx';
 const router =createBrowserRouter(
   [
     {
@@ -35,6 +37,14 @@ const router =createBrowserRouter(
           path:'/planos',
           element:<Planos></Planos>
         },
+        {
+          path: '/buscar',
+          element:<TabelaClientes></TabelaClientes>
+        },
+        {
+          path: '/editar/:id',
+          element:<Editar></Editar>
+        }
 
       ]
     }

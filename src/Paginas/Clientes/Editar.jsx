@@ -3,8 +3,9 @@ import InputMask from 'react-input-mask';
 import './Clientes.css';
 import { validarCPF, validarCNPJ, buscarEnderecoPorCEP, buscarCnpj } from './Clientes.js';
 import TabelaClientes from './TabelaClientes';
+import { useParams , useNavigate } from 'react-router-dom';
 
-function Clientes() {
+function Editar() {
   const [cli_tipo, setCli_tipo] = useState('CPF');
   const [cli_nome, setCli_nome] = useState('');
   const [cli_razao, setCli_razao] = useState('');
@@ -26,25 +27,60 @@ function Clientes() {
   const [cli_cid, setCli_cid] = useState('');
   const [cli_email, setCli_email] = useState('');
   const [mostrarTabela, setMostrarTabela] = useState(false);
-  const [clienteSelecionado, setClienteSelecionado] = useState(null);
 
-  
+  const navigate = useNavigate();
 
-
-  const handleSelecionarCliente = (cliente) => {
-    setClienteSelecionado(cliente);
+  const formatarData = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based in JS
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
-  
 
+
+  const { id } = useParams();
+  console.log("id encontrado",id);
 
   useEffect(() => {
-    if (clienteSelecionado) {
-      // Preencha os estados locais com os valores do cliente selecionado
-      setCli_nome(clienteSelecionado.cli_nome);
-      setCli_cpf(clienteSelecionado.cli_cpf);
-      // Preencha os outros campos do cliente...
+    const fetchCliente = async () => {
+      try {
+        const response = await fetch(`http://localhost:4001/clientes/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          // Atualizar o estado local com os dados do cliente
+          console.log(data);
+          setCli_nome(data[0].cli_nome);
+          setCli_razao(data[0].cli_razao);
+          setCli_fantasia(data[0].cli_fantasia);
+          setCli_tel(data[0].cli_tel);
+          setCli_cpf(data[0].cli_cpf);
+          setCli_cnpj(data[0].cli_cnpj);
+          const dataformatada = formatarData(data[0].cli_data_nascimento);
+          setCli_data_nascimento(dataformatada);
+          setCli_cep(data[0].cli_cep);
+          setCli_end(data[0].cli_end);
+          setCli_bairro(data[0].cli_bairro);
+          setCli_num(data[0].cli_num);
+          setCli_uf(data[0].cli_uf);
+          setCli_cid(data[0].cli_cid);
+          setCli_email(data[0].cli_email);
+          setCli_tipo(data[0].cli_tipo);
+          
+        } else {
+          console.error('Erro ao buscar cliente:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar cliente:', error.message);
+      }
+    };
+
+    if (id) {
+      fetchCliente();
     }
-  }, [clienteSelecionado]);
+  }, [id]);
+
 
   const handleBlurNome = () => {
     if (cli_nome.length < 2) {
@@ -127,6 +163,7 @@ function Clientes() {
     }
   };
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -143,6 +180,7 @@ function Clientes() {
     }
 
     const cliente = {
+      cli_id:id,
       cli_tipo,
       cli_nome,
       cli_razao,
@@ -161,8 +199,8 @@ function Clientes() {
     };
 
     try {
-      const response = await fetch('http://localhost:4001/clientes', {
-        method: 'POST',
+        const response = await fetch(`http://localhost:4001/clientes/${id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -170,7 +208,8 @@ function Clientes() {
       });
 
       if (response.ok) {
-        alert('Cliente cadastrado com sucesso!');
+        alert('Cliente atualizado com sucesso!');
+        navigate('/buscar')
         // Limpar todos os campos após o envio
         setCli_nome('');
         setCli_razao('');
@@ -189,10 +228,10 @@ function Clientes() {
         setCli_tipo('CPF');
       } else {
         const errorData = await response.json();
-        alert(`Erro ao cadastrar cliente: ${errorData.message}`);
+        alert(`Erro ao atualizar cliente: ${errorData.message}`);
       }
     } catch (error) {
-      alert(`Erro ao cadastrar cliente: ${error.message}`);
+      alert(`Erro ao atualizar cliente: ${error.message}`);
     }
   };
 
@@ -201,17 +240,13 @@ function Clientes() {
       event.preventDefault();
     }
   };
-  const handleMostrarTabela = () => {
-    setMostrarTabela(true);
-  };
-
   return (
     <>
       {mostrarTabela ? (
-        <TabelaClientes setMostrarTabela={setMostrarTabela} onSelectCliente={handleSelecionarCliente} handleSubmit={handleSubmit} />
+        <TabelaClientes setMostrarTabela={setMostrarTabela}/>
       ) : (
         <form className="container mt-5" onSubmit={handleSubmit}>
-          <h1>Cadastro de Cliente</h1>
+          <h1>Editar Cliente</h1>
           <div className="form-group">
             <label htmlFor="cli_tipo">Tipo de Cliente</label>
             <select
@@ -411,4 +446,6 @@ function Clientes() {
   );
 }
 
-export default Clientes;
+
+
+export default Editar;

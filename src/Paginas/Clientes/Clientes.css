@@ -1,27 +1,49 @@
+/* Estilos CSS personalizados */
+
+/* Estilos para o formulário */
 form {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  /* Salas.css */
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Estilos para os grupos de formulário */
 .form-group {
-    margin-bottom: 20px; /* Espaçamento entre os grupos de formulário */
-  }
-  
-  .form-group .btn + .btn {
-    margin-left: 10px; /* Espaçamento entre os botões */
-  }
-  /* Estilo para campos válidos */
+  margin-bottom: 20px; /* Espaçamento entre os grupos de formulário */
+}
+
+.form-group .btn + .btn {
+  margin-left: 10px; /* Espaçamento entre os botões */
+}
+
+/* Estilo para campos válidos */
 .is-valid {
-    border-color: green !important;
-  }
-  
+  border-color: green !important;
+}
+
+/* Estilos para os botões */
+.btn-primary {
+  margin-top: 20px; /* Espaçamento entre os botões */
+}
+
+.btn-submit {
+  background-color: #28a745; /* Cor de fundo verde para o botão enviar */
+  border-color: #28a745; /* Cor da borda verde para o botão enviar */
+}
+
+.btn-submit:hover {
+  background-color: #218838; /* Cor de fundo verde mais escura no hover */
+  border-color: #218838; /* Cor da borda verde mais escura no hover */
+}
+
+.btn-mostrar-tabela {
+  margin-top: 20px; /* Espaçamento entre o botão "Mostrar Tabela" e o botão "Enviar" */
+}

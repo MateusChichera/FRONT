@@ -1,33 +1,115 @@
 /* TabelaClientes.css */
+
+body {
+  font-family: 'Roboto', sans-serif; /* Adiciona a fonte Roboto para todo o corpo */
+  background-color: #f8f9fa; /* Define uma cor de fundo clara */
+}
+
 .table-container {
-    margin-top: 50px;
-  }
-  
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.table-striped {
+  width: 100%; /* Ajusta a largura da tabela para ocupar 100% da área disponível */
+  margin: auto;
+  border-collapse: collapse;
+  background-color: #fff; /* Define a cor de fundo da tabela */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
+}
+
+.table-striped th, .table-striped td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.table-striped th {
+  background-color: #343a40; /* Cor de fundo da header */
+  color: #fff; /* Cor do texto da header */
+  text-transform: uppercase; /* Transforma o texto em maiúsculas */
+  letter-spacing: 1px; /* Espaçamento entre letras */
+}
+
+.table-striped tr:nth-child(even) {
+  background-color: #f2f2f2; /* Cor de fundo das linhas pares */
+}
+
+.table-striped tr:hover {
+  background-color: #e9ecef; /* Cor de fundo ao passar o mouse */
+}
+
+.btn {
+  margin-right: 8px;
+  display: inline-block;
+  padding: 6px 12px; /* Ajusta o padding dos botões */
+  font-size: 12px; /* Reduz o tamanho da fonte dos botões */
+  vertical-align: middle;
+  border: none;
+  border-radius: 4px; /* Bordas arredondadas */
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+}
+
+.btn-success {
+  background-color: #28a745; /* Verde padrão */
+}
+
+.btn-success:hover {
+  background-color: #218838; /* Verde escuro ao passar o mouse */
+}
+
+.btn-danger {
+  background-color: #dc3545; /* Vermelho padrão */
+}
+
+.btn-danger:hover {
+  background-color: #c82333; /* Vermelho escuro ao passar o mouse */
+}
+
+.form-control {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 4px; /* Bordas arredondadas */
+  border: 1px solid #ced4da;
+}
+
+.select-busca {
+  width: 150px;
+  height: 35px;
+  margin-right: 4px;
+}
+
+.input-busca {
+  width: auto; /* Ajusta automaticamente a largura do input */
+  height: 35px; /* Define a altura do input */
+  margin-right: 8px;
+  border-radius: 4px; /* Bordas arredondadas */
+  border: 1px solid #ced4da;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group .btn {
+  margin-left: 4px; /* Ajusta o espaçamento à esquerda */
+}
+
+h1 {
+  font-family: 'Roboto', sans-serif; /* Define a fonte Roboto para o título */
+  text-align: center; /* Centraliza o título */
+  color: #343a40; /* Cor do texto do título */
+}
+
+@media (min-width: 1200px) {
   .table-striped {
-    width: 100%;
-    border-collapse: collapse;
+    width: 110%; /* Ajusta a largura da tabela para telas maiores */
   }
-  
-  .table-striped th, .table-striped td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd; /* Adiciona bordas para as células da tabela */
-  }
-  
-  .table-striped th {
-    background-color: #f2f2f2;
-  }
-  
-  .table-striped tr:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .btn {
-    margin-right: 5px;
-    display: inline-block; /* Garante que os botões estejam lado a lado */
-  }
-  
-  .table-striped td .btn {
-    margin-right: 5px; /* Garante espaçamento entre os botões */
-  }
-  
+}
+.cor{
+  background-color: rgb(94, 94, 94);
+}

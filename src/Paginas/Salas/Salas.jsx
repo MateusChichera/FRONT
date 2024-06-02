@@ -70,14 +70,49 @@ function Salas() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (nomeValido && quantidadeValida && capacidadeValida && observacoesValidas) {
-      alert('Sala cadastrada com sucesso!');
+      const nome = document.getElementById('nome').value;
+      const quantidade = document.getElementById('andar').value;
+      const capacidade = document.getElementById('capacidade').value;
+      const observacoes = document.getElementById('observacoes').value;
+  
+      const sala ={
+        sal_nome: nome,
+        sal_tipo: tipoSala,
+        sal_andar: quantidade,
+        sal_cap: capacidade,
+        sal_obs: observacoes,
+      };
+  
+      try{
+        const response = await fetch('http://localhost:4001/salas',{
+          method : 'POST',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(sala),
+        });
+  
+        if(response.ok){
+          alert('Sala Cadastrada com sucesso');
+          setNomeValido(false);
+          setCapacidadeValida(false);
+          setObservacoesValidas(false);
+          setQuantidadeValida(false);
+        }else{
+          const errorData = await response.json();
+          alert(`Erro ao cadastrar sala: ${errorData.message}`);
+        }
+      }catch(error){
+        alert(`Erro ao cadastrar sala: ${error.message}`);
+      }
     } else {
       alert('Por favor, preencha todos os campos corretamente.');
     }
   };
+  
 
   return (
     <form action="submit" className="container mt-5" onSubmit={handleSubmit}>
