@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import '../Salas/Salas.css';
+import { useParams , useNavigate } from 'react-router-dom';
 
-function Salas() {
+function EditarSalas() {
   const [nomeValido, setNomeValido] = useState(false);
   const [quantidadeValida, setQuantidadeValida] = useState(false);
   const [capacidadeValida, setCapacidadeValida] = useState(false);
   const [observacoesValidas, setObservacoesValidas] = useState(false);
   const [tipoSala, setTipoSala] = useState('COWORKING');
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const validarNome = (nome) => {
     const regex = /^[A-Za-z\s]+$/;
@@ -70,6 +73,32 @@ function Salas() {
     }
   };
 
+  useEffect(() => {
+    const fetchSala = async () => {
+      try {
+        const response = await fetch(`http://localhost:4001/salas/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          // Atribuir os valores recuperados aos campos de entrada diretamente
+          document.getElementById('tipoSala').value = data[0].sal_tipo;
+          document.getElementById('capacidade').value = data[0].sal_cap;
+          document.getElementById('nome').value = data[0].sal_nome;
+          document.getElementById('observacoes').value = data[0].sal_obs;
+          document.getElementById('andar').value = data[0].sal_andar;
+        } else {
+          console.error('Erro ao buscar sala:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar sala:', error.message);
+      }
+    };
+  
+    if (id) {
+      fetchSala();
+    }
+  }, [id]);
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (nomeValido && quantidadeValida && capacidadeValida && observacoesValidas) {
@@ -87,8 +116,8 @@ function Salas() {
       };
   
       try{
-        const response = await fetch('http://localhost:4001/salas',{
-          method : 'POST',
+        const response = await fetch(`http://localhost:4001/salas/${id}`,{
+          method : 'PUT',
           headers:{
             'Content-Type': 'application/json'
           },
@@ -96,17 +125,18 @@ function Salas() {
         });
   
         if(response.ok){
-          alert('Sala Cadastrada com sucesso');
+          alert('Sala atualizada com sucesso');
+          navigate('/buscar/salas')
           setNomeValido(false);
           setCapacidadeValida(false);
           setObservacoesValidas(false);
           setQuantidadeValida(false);
         }else{
           const errorData = await response.json();
-          alert(`Erro ao cadastrar sala: ${errorData.message}`);
+          alert(`Erro ao atualizar sala: ${errorData.message}`);
         }
       }catch(error){
-        alert(`Erro ao cadastrar sala: ${error.message}`);
+        alert(`Erro ao atualizar sala: ${error.message}`);
       }
     } else {
       alert('Por favor, preencha todos os campos corretamente.');
@@ -116,7 +146,7 @@ function Salas() {
 
   return (
     <form action="submit" className="container mt-5" onSubmit={handleSubmit}>
-      <h1>Cadastro de Sala</h1>
+      <h1>Editar Sala</h1>
       <div className="form-group">
         <label htmlFor="tipoSala">Tipo de Sala</label>
         <select
@@ -183,4 +213,4 @@ function Salas() {
   );
 }
 
-export default Salas;
+export default EditarSalas;

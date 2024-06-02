@@ -83,6 +83,12 @@ function NavBar() {
                                         <span className="mx-2" style={{ color: 'white' }}>Clientes</span>
                                     </Link>
                                 </li>
+                                <li className="nav-link">
+                                    <Link to='/buscar/salas'>
+                                        <FaCogs />
+                                        <span className="mx-2" style={{ color: 'white' }}>Salas</span>
+                                    </Link>
+                                </li>
                             </ul>
                         )}
                     </li>
