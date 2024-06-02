@@ -13,6 +13,10 @@ import TabelaClientes from './Paginas/Clientes/TabelaClientes.jsx';
 import Editar from './Paginas/Clientes/Editar.jsx';
 import TabelaSalas from './Paginas/Salas/TabelaSalas.jsx';
 import EditarSalas from './Paginas/Salas/EditarSalas.jsx';
+import TabelaPlanos from './Paginas/Planos/TabelaPlanos.jsx';
+import EditarPlanos from './Paginas/Planos/EditarPlanos.jsx';
+import TabelaHorarios from './Paginas/Horarios/TabelaHorarios.jsx';
+import EditarHorario from './Paginas/Horarios/EditarHorario.jsx';
 const router =createBrowserRouter(
   [
     {
@@ -54,6 +58,22 @@ const router =createBrowserRouter(
         {
           path: '/editar/sala/:id',
           element:<EditarSalas></EditarSalas>
+        },
+        {
+          path: '/buscar/planos',
+          element:<TabelaPlanos></TabelaPlanos>
+        },
+        {
+          path: '/editar/planos/:id',
+          element: <EditarPlanos></EditarPlanos>
+        },
+        {
+          path: '/buscar/horarios',
+          element: <TabelaHorarios></TabelaHorarios>
+        },
+        {
+          path:'/editar/horarios/:id',
+          element: <EditarHorario></EditarHorario>
         }
 
       ]

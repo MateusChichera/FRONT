@@ -1,7 +1,8 @@
 import '../Horarios/Horarios.css';
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
+import { useParams , useNavigate } from 'react-router-dom';
 
-function Planos() {
+function EditarHorario() {
   const [horarioInicioValido, setHorarioInicioValido] = useState(false);
   const [horarioFimValido, setHorarioFimValido] = useState(false);
   const [horarioInicio, setHorarioInicio] = useState('');
@@ -16,6 +17,8 @@ function Planos() {
     sabado: false,
     domingo: false
   });
+  const {id} = useParams();
+  const navigate = useNavigate();
 
   // Funções de validação
   const validarHorario = (horario) => {
@@ -46,6 +49,39 @@ function Planos() {
     }
   };
 
+  useEffect(() => {
+    const fetchHorarios = async () => {
+      try {
+        const response = await fetch(`http://localhost:4001/horarios/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          // Atribuir os valores recuperados aos campos de entrada diretamente
+          setTipoSala(data[0].hor_tipo);
+          setHorarioInicio(data[0].hor_inicio);
+          setHorarioFim(data[0].hor_fim);
+
+          // Ajustar o estado dos dias da semana
+          const diasSelecionados = data[0].hor_dias.split(',').reduce((acc, dia) => {
+            acc[dia.toLowerCase()] = true;
+            return acc;
+          }, {});
+          setDiasSemana(prevState => ({
+            ...prevState,
+            ...diasSelecionados,
+          }));
+        } else {
+          console.error('Erro ao buscar plano:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar plano:', error.message);
+      }
+    };
+
+    if (id) {
+      fetchHorarios();
+    }
+  }, [id]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const algumDiaSelecionado = Object.values(diasSemana).some(dia => dia);
@@ -59,8 +95,8 @@ function Planos() {
         }
         console.log(horario);
         try{
-          const response = await fetch('http://localhost:4001/horarios',{
-            method : 'POST',
+          const response = await fetch(`http://localhost:4001/horarios/${id}`,{
+            method : 'PUT',
             headers:{
               'Content-Type': 'application/json'
             },
@@ -68,15 +104,16 @@ function Planos() {
           });
     
           if(response.ok){
-            alert('Horario Cadastrado com sucesso');
+            alert('Horario Atualizado com sucesso');
+            navigate('/buscar/horarios')
             setHorarioInicioValido(false);
             setHorarioFimValido(false);
           }else{
             const errorData = await response.json();
-            alert(`Erro ao cadastrar horario: ${errorData.message}`);
+            alert(`Erro ao atualizar horario: ${errorData.message}`);
           }
         }catch(error){
-          alert(`Erro ao cadastrar horario: ${error.message}`);
+          alert(`Erro ao atualizar horario: ${error.message}`);
         }
       }else{
         alert('Por favor, preencha todos os campos corretamente.');
@@ -159,4 +196,4 @@ function Planos() {
   );
 }
 
-export default Planos;
+export default EditarHorario;

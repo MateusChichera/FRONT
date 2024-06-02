@@ -78,17 +78,30 @@ function NavBar() {
                         {showBuscarSubmenu && (
                             <ul className="nav flex-column text-white w-100 submenu">
                                 <li className="nav-link">
+                                    <Link to='/buscar/salas'>
+                                        <FaCogs />
+                                        <span className="mx-2" style={{ color: 'white' }}>Salas</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-link">
+                                    <Link to='/buscar/horarios'>
+                                        <FaCogs />
+                                        <span className="mx-2" style={{ color: 'white' }}>Horarios</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-link">
                                     <Link to='/buscar'>
                                         <FaCogs />
                                         <span className="mx-2" style={{ color: 'white' }}>Clientes</span>
                                     </Link>
                                 </li>
                                 <li className="nav-link">
-                                    <Link to='/buscar/salas'>
+                                    <Link to='/buscar/planos'>
                                         <FaCogs />
-                                        <span className="mx-2" style={{ color: 'white' }}>Salas</span>
+                                        <span className="mx-2" style={{ color: 'white' }}>Planos</span>
                                     </Link>
                                 </li>
+                               
                             </ul>
                         )}
                     </li>

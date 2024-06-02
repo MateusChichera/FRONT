@@ -48,6 +48,7 @@ function TabelaSalas() {
     <table className="table mt-3 table-striped">
       <thead>
         <tr>
+          <th scope="col">Id</th>
           <th scope="col">Nome</th>
           <th scope="col">Tipo</th>
           <th scope="col">Andar</th>
@@ -59,6 +60,7 @@ function TabelaSalas() {
       <tbody>
         {salas.map((sala) => (
           <tr key={sala.sal_id}>
+            <td>{sala.sal_id}</td>
             <td>{sala.sal_nome}</td>
             <td>{sala.sal_tipo}</td>
             <td>{sala.sal_andar}</td>

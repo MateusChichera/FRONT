@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import InputMask from 'react-input-mask';
 import '../Planos/Planos.css'; // Verifique o nome do arquivo CSS
+import { useParams , useNavigate } from 'react-router-dom';
 
-function Planos() {
+function EditarPlanos() {
   const [planoValido, setPlanoValido] = useState(false);
   const [valorValido, setValorValido] = useState(false);
   const [vigenciaValida, setVigenciaValida] = useState(false);
+
+  const {id} = useParams();
+  const navigate = useNavigate();
 
   // Funções de validação
   const validarPlano = (nome) => {
@@ -55,6 +59,29 @@ function Planos() {
     }
   };
 
+  useEffect(() => {
+    const fetchPlanos = async () => {
+      try {
+        const response = await fetch(`http://localhost:4001/planos/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          // Atribuir os valores recuperados aos campos de entrada diretamente
+          document.getElementById('nome').value = data[0].pla_nome;
+          document.getElementById('quantidade').value = data[0].pla_valor;
+          document.getElementById('vigencia').value = data[0].pla_dias;
+        } else {
+          console.error('Erro ao buscar plano:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar plano:', error.message);
+      }
+    };
+  
+    if (id) {
+      fetchPlanos();
+    }
+  }, [id]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (planoValido && valorValido && vigenciaValida) {
@@ -69,8 +96,8 @@ function Planos() {
       };
       console.log(plano);
       try{
-        const response = await fetch('http://localhost:4001/planos',{
-          method : 'POST',
+        const response = await fetch(`http://localhost:4001/planos/${id}`,{
+          method : 'PUT',
           headers:{
             'Content-Type': 'application/json'
           },
@@ -78,16 +105,17 @@ function Planos() {
         });
   
         if(response.ok){
-          alert('Plano Cadastrado com sucesso');
+          alert('Plano Atualizado com sucesso');
+          navigate('/buscar/planos')
           setPlanoValido(false);
           setValorValido(false);
           setVigenciaValida(false);
         }else{
           const errorData = await response.json();
-          alert(`Erro ao cadastrar plano: ${errorData.message}`);
+          alert(`Erro ao atualizar plano: ${errorData.message}`);
         }
       }catch(error){
-        alert(`Erro ao cadastrar plano: ${error.message}`);
+        alert(`Erro ao atualizar plano: ${error.message}`);
       }
     }else{
       alert('Por favor, preencha todos os campos corretamente.');
@@ -96,7 +124,7 @@ function Planos() {
 
   return (
     <form action="submit" className="container mt-5" onSubmit={handleSubmit}>
-      <h1>Cadastro de Plano</h1>
+      <h1>Editar Plano</h1>
       <div className="form-group">
         <label htmlFor="nome">Nome</label>
         <input
@@ -138,4 +166,4 @@ function Planos() {
   );
 }
 
-export default Planos;
+export default EditarPlanos;
